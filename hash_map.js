@@ -160,8 +160,8 @@ var hash_map = function () {
                 h = h & 0xffffffff;
             }
         }
-        h ^= (h >>> 20) ^ (h >>> 12);
-        return h ^ (h >>> 7) ^ (h >>> 4);
+		h ^= (h >>> 20) ^ (h >>> 12);
+		return h ^ (h >>> 7) ^ (h >>> 4);
 	};
 }
 
