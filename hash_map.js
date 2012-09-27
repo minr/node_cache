@@ -152,14 +152,14 @@ var hash_map = function () {
 	 */
 	var hashCode = function (key) {
 		var h = 0, off = 0;
-        var length = key.length;
-        for (var i = 0; i < length; i++) {
-            var temp = key.charCodeAt(off++);
-            h = 31 * h + temp;
-            if (h > 0x7fffffff || h < 0x80000000) {
-                h = h & 0xffffffff;
-            }
-        }
+		var length = key.length;
+		for (var i = 0; i < length; i++) {
+			var temp = key.charCodeAt(off++);
+			h = 31 * h + temp;
+			if (h > 0x7fffffff || h < 0x80000000) {
+			    h = h & 0xffffffff;
+			}
+		}
 		h ^= (h >>> 20) ^ (h >>> 12);
 		return h ^ (h >>> 7) ^ (h >>> 4);
 	};
