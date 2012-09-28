@@ -52,6 +52,15 @@ var operate_api = function () {
 		return mem_slab.remove(item);
 	}	
 
+	/*	
+	 * 清除
+	 */
+	this.flush = function () {
+		mem_slab.flush();
+		hash_map.flush();
+		return true;
+	}
+
 }
 
 module.exports = operate_api;

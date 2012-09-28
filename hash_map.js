@@ -89,7 +89,7 @@ var hash_map = function () {
 	 * 参数：
 	 * key  : key值
 	 */
-	this.clear = function () {
+	this.flush = function () {
 		hash_table = null;
 		hash_table = new Array(hash_table_length);
 		total_size = 0;

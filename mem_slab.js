@@ -125,6 +125,18 @@ var mem_slab = function () {
 	}
 
 	/*	
+	 * 清除操作
+	 */
+	this.flush = function () {
+		buffer 	= null;
+		buffer 	= new Buffer(buffer_length); 
+		slab  	= null;
+		slab 	= new Array();
+		buffer_i= 0;
+		return true;
+	}
+
+	/*	
 	 * 对内存进行分片
 	 */
 	var creat_slab = function (k) {
