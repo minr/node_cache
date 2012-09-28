@@ -15,21 +15,22 @@ var tcp_server = function () {
 	var buf = {};
 	var buffer = new Buffer(1024 * 1024 * 100);
 
+	var operate_api = require('./operate_api');
+	var operate_api = new operate_api;
+
 	/*	
 	 *	运行node_cache缓存服务器
 	 */
 	this.init = function () {
-
-	var operate_api = require('./operate_api');
-	var operate_api = new operate_api;
-	operate_api.init();
+		operate_api.init();
 
 		var server = net.createServer(function(socket) {
 			var commandArr = []; //存放指令
 			socket.write('hello, welcome to node_cache, you can command help');
 			socket.on("data", function(data) { // 接收到客户端数据
 				if (data == '\r\n') {
-					var command = parseCommand(commandArr, socket);
+					var result = parseCommand(commandArr, socket);
+					socket.write(result.toString() + '\r\n');
 					commandArr = [];
 				} else {
 					commandArr.push(data);
@@ -44,16 +45,16 @@ var tcp_server = function () {
 		commandStr = commandStr.trim();
 		commandBuf = [];
 		commandBuf = commandStr.split(/\s+/g);
-
 		if (commandBuf[0] == 'exit') {
 			socket.end('bye');
 		} else if (commandBuf[0] == 'set') {
-			buf[commandBuf[1]] = commandBuf[2];
+			return operate_api.set(commandBuf[1], commandBuf[2], commandBuf[3]);
 		} else if (commandBuf[0] == 'get')  {
-			socket.write(buf[commandBuf[1]]);
+			return operate_api.get(commandBuf[1]);
+		} else if (commandBuf[0] == 'remove') {
+			return operate_api.remove(commandBuf[1]);
 		}
-
-		return commandStr;
+		return true;
 	}
 
 

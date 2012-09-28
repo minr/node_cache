@@ -57,12 +57,12 @@ var mem_slab = function () {
 			var chunk_i = temp.clear_chunk.shift();
 		} else {
 			var chunk_i = temp.chunk_i;
+			temp.chunk_i++;
 		}
 		var start = temp.start + slab_table[k] * chunk_i;
 		var end   = temp.start + slab_table[k] * (chunk_i + 1);
 		var result= buffer_set(value, start);
 		if (!result) return false;
-		temp.chunk_i++;
 
 		var item = {
 			'start' : start,
@@ -74,6 +74,7 @@ var mem_slab = function () {
 			'expires' : expires,
 			'len' : len
 		}
+		console.log(slab);
 		return item;
 	}
 

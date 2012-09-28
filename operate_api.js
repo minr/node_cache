@@ -18,6 +18,7 @@ var operate_api = function () {
 	 * expires : 缓存时间
 	 */
 	this.set = function (key, value, expires) {
+		if (key == undefined || value == undefined) return false;
 		expires = (expires == undefined) ? 0 : parseInt(expires);
 		var item = hash_map.get(key); //获取hashValue，如果存在，先清空之前数据，再设置
 		if (item) mem_slab.remove(item);
@@ -32,6 +33,7 @@ var operate_api = function () {
 	 * key : 键
 	 */
 	this.get = function (key) {
+		if (key == undefined) return false;
 		var item = hash_map.get(key);
 		if (!item) return false;
 		return mem_slab.get(item);
@@ -43,6 +45,7 @@ var operate_api = function () {
 	 * key : 键
 	 */
 	this.remove = function (key) {
+		if (key == undefined) return false;
 		var item = hash_map.get(key);
 		if (!item) return true;
 		hash_map.remove(key);
