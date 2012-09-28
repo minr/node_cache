@@ -20,9 +20,9 @@ var tcp_server = function () {
 	 */
 	this.init = function () {
 
-
-		buf = new Buffer(256); 
-
+	var operate_api = require('./operate_api');
+	var operate_api = new operate_api;
+	operate_api.init();
 
 		var server = net.createServer(function(socket) {
 			var commandArr = []; //存放指令
@@ -52,16 +52,6 @@ var tcp_server = function () {
 		} else if (commandBuf[0] == 'get')  {
 			socket.write(buf[commandBuf[1]]);
 		}
-
-		var hash_map = require('./hash_map');
-		var hash_map = new hash_map;
-		for (var i = 0; i< 5000; i++) {
-			hash_map.put(i, i);	
-		}
-		console.log(hash_map.size());
-		console.log(hash_map.get(10));
-		console.log(hash_map.get(11));
-		console.log(hash_map.get(13));
 
 		return commandStr;
 	}

@@ -28,10 +28,11 @@ var hash_map = function () {
 			for (var obj = hash_table[index]; obj != null; obj = obj.next) {
 				if (obj.hash == hash && obj.key == key) {
 					obj.value = value;
-					return obj.value;
+					return true;
 				}
 			}
 			addEntry(hash, key, value, index);
+			return true;
 		}
 		return false;
 	}
