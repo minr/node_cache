@@ -61,6 +61,16 @@ var operate_api = function () {
 		return true;
 	}
 
+	/*	
+	 * 返回状态
+	 */
+	this.status = function () {
+		var item = mem_slab.status();
+		item.key_len = hash_map.size();
+		console.log(item);
+		return item;
+	}
+
 }
 
 module.exports = operate_api;

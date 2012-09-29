@@ -55,6 +55,8 @@ var tcp_server = function () {
 			return operate_api.flush();
 		} else if (commandBuf[0] == 'remove') {
 			return operate_api.remove(commandBuf[1]);
+		} else if (commandBuf[0] == 'status') {
+			return operate_api.status();
 		}
 		return true;
 	}
