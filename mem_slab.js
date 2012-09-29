@@ -210,7 +210,6 @@ var mem_slab = function () {
 			}
 			buffer_info.last_update_time[buffer_info.i] = get_timestamp();
 			buffer_info.i++;
-			console.log(buffer_info.i);
 			slab[k].push(item);
 			return true;
 		}
