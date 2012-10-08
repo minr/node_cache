@@ -160,8 +160,9 @@ var mem = function () {
 	 * item : 数据结构
 	 */
 	this.remove = function (item) {
-		var temp = slab[item.k][item.i];
-		if (!slab[item.k][item.i]) {
+		if (slab[item.k][item.i]) {
+			var temp = slab[item.k][item.i];
+			var j = item.j;
 			if (temp.used[j]) {
 				delete(temp.used[j]);
 				temp.freelist.push(j);

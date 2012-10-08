@@ -61,7 +61,7 @@ var operate_api = function () {
 		var item = hash_map.get(key);
 		if (!item) return true;
 		hash_map.remove(key);
-		return mem_slab.remove(key);
+		return mem_slab.remove(item);
 	}	
 
 }
