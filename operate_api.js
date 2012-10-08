@@ -1,9 +1,19 @@
+/*********************************************************************************
+ * node_cache nodejs缓存服务
+ * 文件说明：提供对外操作的api
+ *-------------------------------------------------------------------------------
+ * 版权所有: CopyRight By initphp.com
+ * 您可以自由使用该源码，但是在使用过程中，请保留作者信息。尊重他人劳动成果就是尊重自己
+ *-------------------------------------------------------------------------------
+ * $Author:zhuli
+ * $Dtime:2012-9-9
+***********************************************************************************/
 var operate_api = function () {
 
 	var hash_map = require('./hash_map');
 	var hash_map = new hash_map;
-	var mem_slab = require('./mem_slab');
-	var mem_slab = new mem_slab;
+	var mem = require('./mem');
+	var mem_slab = new mem;
 	
 
 	this.init = function () {
@@ -20,11 +30,15 @@ var operate_api = function () {
 	this.set = function (key, value, expires) {
 		if (key == undefined || value == undefined) return false;
 		expires = (expires == undefined) ? 0 : parseInt(expires);
-		var item = hash_map.get(key); //获取hashValue，如果存在，先清空之前数据，再设置
-		if (item) mem_slab.remove(item);
-		var result = mem_slab.put(value, expires);
-		if (!result) return false;
-		return hash_map.put(key, result);
+		
+		var item = hash_map.get(key);
+		if (item) {
+			hash_map.remove(item);
+		}
+		
+		var ret = mem_slab.set(value, expires);
+		if (!ret) return false;
+		return hash_map.put(key, ret);
 	}
 
 	/*	
@@ -38,38 +52,17 @@ var operate_api = function () {
 		if (!item) return false;
 		return mem_slab.get(item);
 	}
-
+	
 	/*	
 	 * 删除值
-	 * 结构：
-	 * key : 键
 	 */
 	this.remove = function (key) {
 		if (key == undefined) return false;
 		var item = hash_map.get(key);
 		if (!item) return true;
 		hash_map.remove(key);
-		return mem_slab.remove(item);
+		return mem_slab.remove(key);
 	}	
-
-	/*	
-	 * 清除
-	 */
-	this.flush = function () {
-		mem_slab.flush();
-		hash_map.flush();
-		return true;
-	}
-
-	/*	
-	 * 返回状态
-	 */
-	this.status = function () {
-		var item = mem_slab.status();
-		item.key_len = hash_map.size();
-		console.log(item);
-		return item;
-	}
 
 }
 
