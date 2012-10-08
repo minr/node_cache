@@ -35,7 +35,7 @@ var hash_map = function () {
 			return true;
 		}
 		return false;
-	}
+	};
 
 	/*	
 	 * 获取hashmap对应值
@@ -53,7 +53,7 @@ var hash_map = function () {
 			}
 		}
 		return false;
-	}
+	};
 
 	/*	
 	 * 删除一个hash值
@@ -82,7 +82,7 @@ var hash_map = function () {
 			}
 		} 
 		return false;
-	}
+	};
 
 	/*	
 	 * 清空hashtable操作
@@ -94,7 +94,7 @@ var hash_map = function () {
 		hash_table = new Array(hash_table_length);
 		total_size = 0;
 		return hash_table;
-	}
+	};
 
 	/*	
 	 * 判断KEY值是否存在
@@ -112,14 +112,14 @@ var hash_map = function () {
 			}
 		}
 		return false;
-	}
+	};
 
 	/*	
 	 * 返回hashMap长度
 	 */
 	this.size = function () {
 		return total_size;
-	}
+	};
 
 	/*	
 	 * 解决hash冲突的链表结构
@@ -139,14 +139,14 @@ var hash_map = function () {
 		 };
 		 hash_table[index] = item;
 		 total_size++; //统计数据表总长度
-	}
+	};
 
 	/*	
 	 *	经过该函数得到 哈希表 哈希地址
 	 */
 	var indexFor = function (hash, length) {
 		return hash & (length - 1);
-	}
+	};
 
 	/*	
 	 *	通过hashCode函数，将key转化成整型
